@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="index.css">
+    <script src="firebase-app.js"></script>
+    <script src="firebase-database.js"></script>
+    <title>Cotton Bed Sheets (3PCS)</title>
+</head>
+<body>
+    <div id="page-wrapper">  <!-- page-wrapper start -->
+
+        <div id="overlay-wrapper">  <!-- overlay-wrapper start -->
+            <div id="overlay"></div>
+        </div>  <!-- overlay-wrapper end -->
+
+        <div id="review-left">
+            <p><span>&#9733;</span>Reviews</p>
+        </div>
+        <div id="container">  <!-- container start -->
+
+            <div id="checkout-form"> <!-- checkout form start -->
+                <div id="close-checkout" onclick="closeChkbtn()">
+                    <div class="closeBtn">X</div>
+                </div>
+                <div class="checkout-form-wrapper">
+                    <div id="checkout-form-left-side">
+                        <form id="orderForm">
+                            <div class="contact">
+                                <p><strong>Contact</strong></p>
+                                <div class="email">
+                                    <p>Email address</p>
+                                    <input type="email" name="customer-email" id="customer-email" required>
+                                </div>
+                            </div>
+
+                            <div class="shipping-address">
+
+                                <p><strong>Shipping Address</strong></p>
+                                <div class="full-name">
+                                    <div class="first-name">
+                                        <p>First name</p>
+                                        <input type="text" name="customer-first-name" id="customer-first-name" required>
+                                    </div>
+                                    <div class="last-name">
+                                        <p>Last name</p>
+                                        <input type="text" name="customer-last-name" id="customer-last-name" required>
+                                    </div>
+                                </div>
+
+                                <div class="address">
+                                    <div class="street-address">
+                                        <p>Address</p>
+                                        <input type="text" name="customer-address" id="customer-address" required>
+                                    </div>
+                                </div>
+
+                                <div class="city-province">
+                                    <div class="city-name">
+                                        <p>City</p>
+                                        <input type="text" name="customer-city-name" id="customer-city-name" required>
+                                    </div>
+                                    <div class="province-name">
+                                        <p>Province</p>
+                                        <input type="text" name="customer-province-name" id="customer-province-name" required>
+                                    </div>
+                                </div>
+
+                                <div class="postal-mobile">
+                                    <div class="postal-code">
+                                        <p>Postal code</p>
+                                        <input type="text" name="customer-postal-code" id="customer-postal-code" required>
+                                    </div>
+                                    <div class="mobile-number">
+                                        <p>Mobile number</p>
+                                        <input type="tel" name="customer-mobile-number" id="customer-mobile-number" required>
+                                    </div>
+                                </div>
+
+                                <p><strong>Select payment method</strong></p>
+
+                                <div class="paymentOptions">
+                                    <input type="radio" name="paymentOption" value="EasyPaisa" required><p>EasyPaisa</p>
+                                    <input type="radio" name="paymentOption" value="JazzCash" required><p>JazzCash</p>
+                                    <input type="radio" name="paymentOption" value="NayaPay" required><p>NayaPay</p>
+                                </div>
+
+                                <div class="paymentOptions">
+                                    <input type="radio" name="paymentOption" value="SadaPay" required><p>SadaPay</p>
+                                    <input type="radio" name="paymentOption" value="Bank Transfer" required><p>Bank Transfer</p>
+                                    <input type="radio" name="paymentOption" value="Cash On Delivery" required><p>Cash On Delivery</p>
+                                </div>
+
+                                <div class="submitOrderBtn">
+                                    <input type="submit" name="submitOrder" value="SUBMIT ORDER TO GET INVOICE" id="submitOrder">
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div id="checkout-form-right-side"></div>
+                </div>
+            </div> <!-- checkout form end -->
+
+            <!-- cart detail start here -->
+            <div id="cart-detail">
+
+                <div id="cart-detail-header">
+                    <div id="close-cart-detail" onclick="closebtn()">X</div>
+                    <h2>You have the following item(s) in your cart ...</h2>
+                </div>
+
+                <div id="cart-products"></div>
+
+                <div id="cart-detail-footer">
+
+                    <div id="cart-btns">
+                        <div class="continue-shopping" onclick="closebtn()">Continue to shopping</div>
+                        <div class="checkout" onclick="showChkbtn()">Checkout</div>
+                    </div>
+
+                    <div id="cart-total">
+                        <div id="products-sum"></div>
+                        <div id="shipping-sum">Shipping: <strong>Free</strong></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- cart detail end here -->
+
+            <div id="top-bar">  <!-- top-bar start -->
+                <div id="top-wrapper">  <!-- top-wrapper start -->
+                    <div id="logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGuvZOZfwTUvws6CZVYaAvcCpOpUTD7XLzwAesHMyhFYeXkjFgwoaNA_tBFrUgytrPtNYK14BBz2VbGnc3Ny1ke35O-2myiRSU6Bzn4lWFeaLpH6qdhlO4eqD_PsL-whRvR4rSRSuZjUXfQaOfIRRiCOuJgBksh5SmrcJp3uQqlSCkQS4aKZMcIzHu/s1600/logo.png" alt="Rukhsar Selection"></div>
+                    <div id="search-box">
+                        <input type="text">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3ydlAhdh3OP_V6-mR5HaznADYp4okf79K4hoC-iEu2tp_OQ5T3qbVHo_Gz2n6LSHH3CwiH6StU1aHS0AHLQdSE_3YAlNA3MDsh5iTXBwa6RZNVK0j6d-seF_6qV7F-EDAgcK5_4NyKXXyaCQ8y_YeoarjsY7MGV7oXlsciMXGbFlyPmlsBmjRHcUt/s1600/search.png" alt="">
+                    </div>
+                    <div id="customer-service">
+                        <p>Customer Services: 0316-1736023</p>
+                    </div>
+                </div>  <!-- top-wrapper end -->
+                <div id="menu-wrapper">  <!-- menu-wrapper start -->
+                    <div id="menu-desktop">  <!-- menu-desktop start -->
+                        <div id="waterproof">WATERPROOF</div>
+                        <div id="basic-bedding">BASIC BEDDING</div>
+                        <div id="luxury-bedding">LUXURY BEDDING</div>
+                        <div id="duvet-sets">DUVET SETS</div>
+                        <div id="kitchen">KITCHEN</div>
+                        <div id="table-runner">TABLE RUNNER</div>
+                        <div id="cushions">CUSHIONS</div>
+                        <div id="clothing">CLOTHING</div>
+                        <div id="others">OTHERS</div>
+                    </div>  <!-- menu-desktop end -->
+                </div>  <!-- menu-wrapper end -->
+            </div>  <!-- top-bar end -->
+            <div id="slider-cotton-bedsheets-3pcs">  <!-- slider start -->
+                <swiper-container>
+                    <swiper-slide><img src="images/Products/04-4203-1.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/01-4201.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/02-4202.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/03-4203.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/05-4205.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/06-4206.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/07-4208.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/08-4210.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/09-4211.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/10-4213.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/11-4214.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/12-4228.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/13-4229.jpg" alt=""></swiper-slide>
+                    <swiper-slide><img src="images/Products/14-4247.jpg" alt=""></swiper-slide>
+                </swiper-container>
+            </div>  <!-- slider end -->
+
+            <div id="products-wrapper"> <!-- products-wrapper start -->
+
+            </div> <!-- products-wrapper end -->
+
+            <div id="bottom-menu">  <!-- bottom-menu start -->
+                <div id="menu-one" class="bms">
+                    <h3>BASIC BEDDING</h3>
+                    <ul>
+                        <li>Cotton Bedsheets (3 PCS)</li>
+                        <li>Single Bedsheets (2 PCS)</li>
+                        <li>Jequard Bedsheets (3 PCS)</li>
+                        <li>Crystal Stain Bedsheets (3 PCS)</li>
+                        <li>Comforter Sets (7 PCS)</li>
+                        <li>Jequard Razai Sets (14 PCS)</li>
+                        <li>Cotton Razai Sets (10 PCS)</li>
+                    </ul>
+                </div>
+                <div id="menu-two" class="bms">
+                    <h3>LUXURY BEDDING</h3>
+                    <ul>
+                        <li>Heavy Plachi Bedsheet (5 PCS)</li>
+                        <li>Quilted Palachi Bedspread (5 PCS)</li>
+                        <li>Sweet Velvet Bedsheets (5 PCS)</li>
+                        <li>Premium Silk Embroidered Bedspread (5 PCS)</li>
+                        <li>Premium Silk Comforter Sets (14 PCS)</li>
+                        <li>Sweet Velvet Razai Sets (14 PCS)</li>
+                        <li>Heavy Plachi Razai Sets (14 PCS)</li>
+                        <li>Fancy Shangai Rarai Sets (14 PCS)</li>
+                    </ul>
+                </div>
+                <div id="menu-three" class="bms">
+                    <h3>DUVET SETS</h3>
+                    <ul>
+                        <li>Pima Cotton Satin Duvet Sets (6 PCS)</li>
+                        <li>Cotton Duvet Sets (8 PCS)</li>
+                    </ul>
+                    <h3>OTHERS</h3>
+                    <ul>
+                        <li>Floor Cushions</li>
+                        <li>Sofa Covers</li>
+                        <li>Embroidered Towels</li>
+                        <li>AC Blankets</li>
+                    </ul>
+                </div>
+                <div id="menu-four" class="bms">
+                    <h3>KITCHEN</h3>
+                    <ul>
+                        <li>Oven Covers (1 PCS)</li>
+                        <li>Hotpot Sets (5 PCS)</li>
+                        <li>Tea Cozy Sets (7 PCS)</li>
+                        <li>Fridge Covers (3 PCS)</li>
+                        <li>Table Mats (3 PCS)</li>
+                    </ul>
+                    <h3>TABLE RUNNER</h3>
+                    <ul>
+                        <li>Table Runners (14 PCS)</li>
+                        <li>Table Mats (3 PCS)</li>
+                    </ul>
+                </div>
+                <div id="menu-five" class="bms">
+                    <h3>CONTACT INFO</h3>
+                    <ul>
+                        <li><strong>WhatsApp:</strong> +923161736023</li>
+                        <li>rukhsarselection@gmail.com</li>
+                    </ul>
+                </div>
+            </div>  <!-- bottom-menu end -->
+            <footer>  <!-- footer start -->
+                <div id="copy-right">
+                    <p>Copyright © <script>document.write(/\d{4}/.exec(Date())[0])</script>, <a href="https://rukhsarselection.blogspot.com/">Rukhsar Selection</a>, All Rights Reserved.</p>
+                </div>
+            </footer>  <!-- footer end -->
+
+            <div id="sale-board">  <!-- sale-board end -->
+                <div id="cart" onclick="cartdetail()">
+                    <div id="cart-msg"><p>Your cart is empty!</p></div>
+                    <div id="cart-items"></div>
+                    <div class="cart-img">
+                        <img src="images/04-shopping-cart.png" alt="">
+                    </div>
+                </div>
+                <div id="shipping">
+                    <p><span class="blink">FREE DELIVERY ALL OVER PAKISTAN</span></p>
+                </div>
+                <div id="sale-board-others">
+                    <div id="payment-methods">
+                        <div id="we-accept">
+                            <h3><span class="looking-good">We Accept Digital Payments On:</span> <br /><span class="digital-payment">03215600735</span></h3>
+                        </div>
+                        <div id="easypaisa"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaoRI88huXInOjH2aCuxAfQ2VFMchW5-kSBKWwcrPVr8U6Tnk5Uoo9QSOijj3SVz0aIRay8sHvmJmICX37-tgPjmJRIvQuIjoKR1DzUNzRi3HmNmtzDQgUGxhgvDwzisZ2B_FTbR4rYiOUo3YxsMFLF_fAA9B5zmHdNwGcu9OivuM-emSAyJCG_fYy/s1600/easypaisa.jpg" alt="easypaisa"></div>
+                        <div id="jasscash"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBX_OHodPCP8rqzhtvvCyAwr12J2QwemS3OdLlDSVreDRBvZSytn125qIqFVs3vNKE9sr_K2XC6yEotM9jHoT4AMWIjuWOQkciKWBOwE7qavSP73DnnKEX3STjR_0hobrF3r7gwzU-3qwzJIsirxauRJVeWu2DkD2GMKJG38LuJ9aM3bKUWGXarZf_/s1600/jazzcash.jpg" alt="jazzcash"></div>
+                        <div id="nayapay"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-2Xfdde1LM4k7mTxI5n2Tqeam_CmmKzkRd9hSFej-JzRbOoNBGnLMzfYAwlEfY7aJI2KmF6kWsiWt0iAPoqAJXq-2xygrpQIEqjESZsQK2h4vc33CgWGNv5SUjovCtTQOjNCQ5c5TCQYHfa9lEHmJlf67yOg2SInFkuOOEp_WAwQpLZFT-3gdvBvq/s1600/nayapay.jpg" alt="nayapay"></div>
+                        <div id="sadapay"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUDW-h-MGwHYWouj7byV9A462JlB892T-kOZk618t9M8761EknlghJkD1k8Ke0YNJMa1wc1pOW3BocGXNvEzlR6HP7ooiaUxg21uauL71TolQvheEDr1tOBQQcmQfYIBHfgYUuaoSA_ccxDf0dwBEM6OVhBH3MIkE58p5izDKRRBTTl-BLriIXjQL_/s1600/sadapay.jpg" alt="sadapay"></div>
+                        <div id="banktransfer"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtadfHfOK26N0d4DKYXpxrexvC-wnUWCgjiLjD3aBzLDfCf0QMKhGlZrRzedmB20tGyBtuFhS6YHDmFU9nowWXDTp902z193fPSCMUDrI7LW1bus9xId4kFPSC2DX9LLWcqbA9HZuD1x6xwhRDZpa5lUJOGlTp9BPCcRdWngUqokXxui14jVs8AvkF/s1600/banktransfer.jpg" alt="banktransfer"></div>
+                    </div>
+
+                    <div id="countdown">
+                        <div class="wrapper">
+                            <h2>Hurry up! Sale Ends in</h2>
+                            <div class="countdown" data-date="01-01-2024" data-time="09:00">
+                                <div class="day"><span class="num"></span><span class="word"></span></div>
+                                <div class="hour"><span class="num"></span><span class="word"></span></div>
+                                <div class="min"><span class="num"></span><span class="word"></span></div>
+                                <div class="sec"><span class="num"></span><span class="word"></span></div>
+                            </div>
+                        </div>
+                        <script type="text/javascript" src="countdown.js"></script>
+                        <script type="text/javascript" src="init.js"></script>
+                    </div>
+                </div>
+            </div>  <!-- sale-board end -->
+
+        </div>  <!-- container end -->
+    </div>  <!-- page-wrapper end -->
+
+    <script src="swiper-element-bundle.min.js"></script>
+
+    <script src="database.js"></script>
+
+    <script>
+
+        const allProducts = document.getElementById("products-wrapper");
+        const showProducts = products.map((product, index) => {
+            if (product.rsi_category=="Cotton Bed Sheet 3PCS" && product.rsi_availability==true) {
+            return `
+
+            <div class="product"> <!-- product start -->
+                <div class="productImage">
+                    <div class="sale"><p>Sale</p></div>
+                    <img src="${product.rsi_image}" onclick="img_box('${product.rsi_image_big}')" alt="Rukhsar Selection">
+                </div>
+                <div class="productDetail">
+                    <h1>${product.rsi_name} - ${product.rsi_id}</h1>
+                    <h2><s>Rs. ${product.rsi_original_price}</s> <span>Rs. ${product.rsi_price} </span></h2>
+                    <div class="product-icons">
+                        <div class="bed">
+                            <div class="bed-img"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0nT1HXQ-p2cP0qFatmatElh4k-x5B2MTs--b5FuH3Lf0NWi-VsXWB_0s9Em88CuYhaQfdTrzyMurVQDCokWuDDc7pPqGru0zQH6zrNRwV4Oq1OCT8sAWXAwb0R4RrRyzFTdFLEBj0K3LFLiMKZtj4sqSgmSYhhYf-A0myMXojyxsurBrpc-8pejyb/s1600/double-bed.png" /></div>
+                            <div class="icon-caption">1 Bed Sheet ${product.rsi_sheet_size}</div>
+                        </div>
+                        <div class="pillow">
+                            <div class="pillow-img"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgb0l_MdNKx1NDvDyWpIHv2HzygsPPBIoBBjNhpbNmQL-Z_anlnEQLGAsvo_Ef7Up9cJyhP9TzR8wvJT_cpt6Aa-qxxFDjVsA0hVX0lwC4ilnszQZT_xR67M86YpmC9pQ2dHu8Y0cYqDQ4x1voxqmwkcwcAktfN44_vi3y0oyyWNGXXWzjiFZE8qWrq/s1600/pillows.png" /></div>
+                            <div class="icon-caption">2 Pillow Case ${product.rsi_pillow_size}</div>
+                        </div>
+                        <div class="cotton">
+                            <div class="cotton-img"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJshMT_WThSekCTjmA31ofnmoy_vNkrLWIdoRkILFJs5nQz2B-HgdTRuVZTXYmv6qr_2pGxznvRjCg5wWMyZtccxoMopEUZME45FzBLSPrKsEBNVD3Y4I2dHrFOF9wPWApNK4mMK_KWYxn-66F_3FXNh9tzeyGDU_zpRkeHvO8ohpnJRgBuAR4g39O/s1600/cotton.png" /></div>
+                            <div class="icon-caption">Fabric: Pure Cotton Export Quality</div>
+                        </div>
+                        <div class="sku">
+                            <div class="sku-img"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8MEHk2ZCC3BpH2LNNqyESXJkPaVdEfI2OBzU993g4L0pWrfw6y_gl854SJYpSOLW6jFhLhjr3AehXPWJrapkIY3DssVHMJg7pZmeHWjqcqXHmgzA0CJZPKavjTJ4OYgtjSOhkaM1tf79mVVy95ow4B3Am685WaXpfvfb__rmIvwlPmuFYX3NyL3Fw/s1600/tracking.png" /></div>
+                            <div class="icon-caption">SKU: ${product.rsi_id}</div>
+                        </div>
+                    </div>
+
+                    <div class="deal">
+                        <button class="add-to-cart" onclick="productName('${product.rsi_image}', '${product.rsi_name} - ${product.rsi_id}', ${product.rsi_price})">ADD TO CART</button>
+                        <button class="whatsapp"><a href="https://wa.me/+923161736023?text=Hi, I want to buy ${product.rsi_name} - ${product.rsi_id}" target="_blank">ORDER ON WHATSAPP</a></button>
+                    </div>
+
+                    <p class="product-des">${product.rsi_description}</p>
+                </div>
+            </div> <!-- product end -->
+
+            `
+        }
+        }).join('');
+
+        allProducts.innerHTML = showProducts;
+
+    </script>
+
+    <script src="img_box.js"></script>
+    <script src="cart.js"></script>
+    <script type="module" src="firebase.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/blank-magic" rel="stylesheet">
+
+    <script src="firebase-app.js"></script>
+    <script src="firebase-database.js"></script>
+    <title>Invoice - Rukhsar Selection</title>
+
+    <style>
+
+      body {
+        font-size: 0.75rem;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        color: #000000;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      #pspdfkit-header {
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 400;
+        color: #717885;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        width: 100%;
+      }
+
+      .header-columns {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      .logo {
+        height: 1.5rem;
+        width: auto;
+        margin-right: 1rem;
+      }
+
+      .logotype {
+        display: flex;
+        align-items: center;
+      }
+
+      h2 {
+        font-family: "Space Mono", monospace;
+        font-size: 1.25rem;
+        font-weight: 400;
+      }
+
+      h4 {
+        font-family: "Space Mono", monospace;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .page {
+        margin-left: 5rem;
+        margin-right: 5rem;
+      }
+
+      .intro-table {
+        display: flex;
+        justify-content: space-between;
+        margin: 3rem 0 3rem 0;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+      }
+
+      .intro-form {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #000000;
+        width: 50%;
+      }
+
+      .intro-form:last-child {
+        border-right: none;
+      }
+
+      .intro-table-title {
+        font-size: 0.625rem;
+        margin: 0;
+      }
+
+      .intro-form-item {
+        padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+      }
+
+      .intro-form-item:first-child {
+        padding-left: 0;
+      }
+
+      .intro-form-item:last-child {
+        padding-right: 0;
+      }
+
+      .intro-form-item-border {
+        padding: 1.25rem 0 0.75rem 1.5rem;
+        border-bottom: 1px solid #000000;
+      }
+
+      .intro-form-item-border:last-child {
+        border-bottom: none;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 6rem;
+      }
+
+      .no-border {
+        border: none;
+      }
+
+      .border {
+        border: 1px solid #000000;
+      }
+
+      .border-bottom {
+        border: 1px solid #000000;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .signer {
+        display: flex;
+        justify-content: space-between;
+        gap: 2.5rem;
+        margin: 2rem 0 2rem 0;
+      }
+
+      .signer-item {
+        flex-grow: 1;
+      }
+
+      input {
+        color: #4537de;
+        font-family: "Space Mono", monospace;
+        text-align: center;
+        margin-top: 1.5rem;
+        height: 4rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      input#date,
+      input#notes {
+        text-align: left;
+      }
+
+      input#signature {
+        height: 8rem;
+      }
+
+      .intro-text {
+        width: 60%;
+      }
+
+      .table-box table,
+      .summary-box table {
+        width: 100%;
+        font-size: 0.625rem;
+      }
+
+      .table-box table {
+        padding-top: 2rem;
+      }
+
+      .table-box td:first-child,
+      .summary-box td:first-child {
+        width: 50%;
+      }
+
+      .table-box td:last-child,
+      .summary-box td:last-child {
+        text-align: right;
+      }
+
+      .table-box table tr.heading td {
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        height: 1.5rem;
+        font-weight: bold;
+      }
+
+      .table-box table tr.item td,
+      .summary-box table tr.item td {
+        border-bottom: 1px solid #d7dce4;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.no-border-item td {
+        border-bottom: none;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.total td {
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.item td:first-child,
+      .summary-box table tr.total td:first-child {
+        border: none;
+        height: 1.5rem;
+      }
+
+      #notes {
+        text-align: center;
+      }
+
+      #pspdfkit-footer {
+        font-size: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+        color: #717885;
+        margin-top: 2.5rem;
+        bottom: 2.5rem;
+        position: absolute;
+        width: 100%;
+      }
+
+      .footer-columns {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      .form > p {
+        color: #4537de;
+        font-family: "Space Mono", monospace;
+        margin-top: 1.5rem;
+        height: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #amountDue {
+        font-size: 18px;
+        color: red;
+      }
+
+      #logo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .storename {
+        font-family: 'Blank Magic', sans-serif;
+        font-size: 38px;
+        margin-top: 10px;
+      }
+
+      .smallstorename {
+        font-family: 'Blank Magic', sans-serif;
+        font-size: 18px;
+      }
+
+      .pink {
+        color: #EC008C;
+      }
+
+      .black {
+        color: #000000;
+      }
+
+      #download-button {
+        position: fixed;
+        padding: 16px 10px 16px 12px;
+        top: 50%;
+        right: 0;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        font-size: 23px;
+        color: white;
+        background-color: #EC008C;
+        border: none;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+        writing-mode: vertical-rl;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+        border-radius: 18px 0px 0px 18px;
+        font-family: 'Kodchasan', sans-serif;
+      }
+
+      #download-button:hover {
+        background-color: #380018;
+      }
+
+      .storename > a {
+        text-decoration: none;
+      }
+
+      p > a {
+        text-decoration: none;
+      }
+
+      .urdulang {
+        font-family: 'Noto Nastaliq Urdu', serif;
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+
+    </style>
+
+    <!-- html2pdf link -->
+    <script src="html2pdf.js"></script>
+  </head>
+
+  <body>
+    <button id="download-button">Download Invoice as PDF</button>
+    <div id="invoice">
+      <div id="logo">
+        <div class="storename"><a href="http://127.0.0.1:5500/" target="_blank"><span class="pink">Rukhsar</span><span class="black">Selection</span></a></div>
+        <div>https://rukhsarselection.blogspot.com/</div>
+      </div>
+      <div id="pspdfkit-header">
+        <div class="header-columns">
+          <div class="logotype">
+            <!-- <p class=".storename"><span>Rukhsar</span> Selection</p> -->
+          </div>
+
+          <div>
+            <!-- <p>https://rukhsarselection.blogspot.com/</p> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="page" style="page-break-after: always;">
+        <div>
+          <h2 id="invoiceNo">Invoice #</h2>
+        </div>
+
+        <div class="intro-table">
+          <div class="intro-form intro-form-item">
+            <p class="intro-table-title">Billed To:</p>
+            <p id="address"></p>
+          </div>
+
+          <div class="intro-form">
+            <div class="intro-form-item-border">
+              <p class="intro-table-title">Order Date:</p>
+              <p id="orderDate"></p>
+            </div>
+
+            <div class="intro-form-item-border">
+              <p class="intro-table-title">Payment Method:</p>
+              <p id="payment-method">Bank Transfer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-box">
+          <table cellpadding="0" cellspacing="0">
+            <tbody id="cartItems"></tbody>
+          </table>
+        </div>
+
+        <div class="summary-box">
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr class="item">
+                <td></td>
+                <td>Shipping/Handling:</td>
+                <td><strong>Free</strong></td>
+              </tr>
+
+              <tr class="no-border-item">
+                <td></td>
+                <td>Total Due:</td>
+                <td id="amountDue"></td>
+              </tr>
+
+              <tr class="total">
+                <td></td>
+                <td>Amount In Words:</td>
+                <td id="amountInWords"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page" style="page-break-after: always;">
+        <div>
+          <h4>Thank you for your purchase!</h4>
+        </div>
+
+        <div class="form">
+          <p id="notes"></p>
+        </div>
+
+        <div>
+          <div id="urdunotes" class="urdulang"></div>
+        </div>
+
+        <div class="signer">
+          <div class="form signer-item">
+            <label for="date" class="label">Date:</label>
+            <p id="date"></p>
+          </div>
+
+          <div class="form signer-item">
+            <label for="signature" class="label">Issued by:</label>
+            <p id="signature"><a href="http://127.0.0.1:5500/" target="_blank" class="smallstorename"><span class="pink">Rukhsar</span><span class="black">Selection</span></a><br />“This document is computer generated and does not require the signature or 
+              stamp in order to be considered valid”.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="pspdfkit-footer">
+        <div class="footer-columns">
+          <!-- <span>Invoice</span> -->
+          <!-- <span>Page {{ pageNumber }} of {{ pageCount }}</span> -->
+        </div>
+      </div>
+    </div>
+    <script src="firebase.js"></script>
+    <script>
+
+      if (localStorage.getItem('customerInvoice')) {
+
+      const button = document.getElementById("download-button");
+
+      var opt = {
+        margin:       0,
+        filename:     'invoice.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      function generatePDF() {
+        // Choose the element that your content will be rendered to.
+        const element = document.getElementById("invoice");
+        // Choose the element and save the PDF for your user.
+        html2pdf().set(opt).from(element).save();
+      }
+
+      button.addEventListener("click", generatePDF);
+
+    } else {
+      window.location.href = 'http://127.0.0.1:5500/';
+    }
+
+    </script>
+  </body>
+</html>
